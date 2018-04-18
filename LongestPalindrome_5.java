@@ -1,5 +1,6 @@
 
-//暴力法
+//暴力法 超时
+/*
 public class LongestPalindrome_5 {
 
 	public String longestPalindrome(String s) {
@@ -43,7 +44,7 @@ public class LongestPalindrome_5 {
 			
 	}
 
-}
+}*/
 
 //分治法 超时？运行错误？
 /*
@@ -95,3 +96,50 @@ public class LongestPalindrome_5 {
 	}
 
 }*/
+//动态规划法，可以通过  dp[ i ][ j ] = dp[ i + 1][ j - 1] && s[ i ] == s[ j]
+public class LongestPalindrome_5 {
+
+	public String longestPalindrome(String s) {
+		if (s == null){
+			return null;
+		}
+		if (s.length() <= 1){
+			return s;
+		}
+		int maxSize = 1;
+		String res = null;
+		boolean[][] a = new boolean[s.length()][s.length()];
+		
+		//子串长度为1的全是回文
+		for (int i = 0; i < s.length(); i++){
+			a[i][i] = true;
+            res = s.substring(i,i+1);
+		}
+		//处理长度为2的子串
+		for(int i = 0; i < s.length()-1; i++){
+			if (s.charAt(i) == s.charAt(i+1)){
+				a[i][i+1] = true;
+				res = s.substring(i,i+2);
+				maxSize = res.length();
+			}
+		}
+		
+		//依次遍历长度从3到lenth-1的串
+		for (int len = 3; len <= s.length(); len++){
+			for (int i = 0; i <= s.length() - len; i++){
+				int j = i + len - 1;
+				if (s.charAt(i) == s.charAt(j)){
+					a[i][j] = a[i+1][j-1];
+					if (a[i][j] == true && len > maxSize)
+					{
+						res = s.substring(i, j+1);
+						maxSize = res.length();
+					}	
+				}
+			}
+		}
+		
+		return res;
+    }
+
+}
