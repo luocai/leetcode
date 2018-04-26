@@ -1,4 +1,4 @@
-class Reverse {
+class Reverse_7 {
     public int reverse(int x) {
 		 long res = 0;//注意声明为long类型
 		 
