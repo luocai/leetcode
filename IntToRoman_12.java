@@ -2,10 +2,10 @@ package leetcode;
 
 import java.util.HashMap;
 
-public class Main12 {
+public class IntToRoman_12 {
 
-	
-	 public String intToRoman(int num) {
+	//此方法太复杂，且无法通过所以样例
+	/* public String intToRoman(int num) {
 		 HashMap<Integer, Character> hash = new HashMap<>();
 		 hash.put(1, 'I');
 		 hash.put(5,'V');
@@ -44,12 +44,25 @@ public class Main12 {
 	    	 
 	     }
 	     return res;
-	 }
+	 }*/
 	 
 	 
-	public static void main(String[] args) {
-		Main12 m = new Main12();
-		System.out.println(m.intToRoman(4));
-	}
+	 
+	 //这个方法就很灵活，拆成一位一位来算，很厉害
+	 public String intToRoman(int num) {
+		  
+		  String[] units = {"","I","II","III","IV","V","VI","VII","VIII","IX"};
+			String[] ten = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX","XC"};  
+			String[] hundred = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC","DCCC", "CM"};  
+			String[] thousand = {"", "M", "MM", "MMM"};  
+			
+			String res = "";
+			
+			res = thousand[num/1000] + hundred[num%1000/100] + ten[num%100/10] + units[num%10];
+			
+			return res;
+	  }
+	  
+	
 
 }
