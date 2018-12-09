@@ -1,0 +1,82 @@
+package leetcode;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ThreeSum_15 {
+
+	
+	public List<List<Integer>> threeSum(int[] nums) {
+       List<List<Integer>> res = new ArrayList<List<Integer>>();
+       
+       if(nums.length < 3)
+    	   return res;
+       
+       Map<Integer, Integer> map = new HashMap<>();
+       
+       for(int i = 0; i<nums.length ;i++){
+    	   if(map.containsKey(nums[i])){
+    		   map.put(nums[i],map.get(nums[i])+1);
+    	   }else{
+    		   map.put(nums[i], 1);
+    	   }
+       }
+       
+       for(int i = 0; i < nums.length; i++){
+    	   
+    	   for(int j = i+1; j < nums.length ;j++){
+    		   
+    		   int left = (nums[i] + nums[j]) * (-1);
+    		   
+    		   if(map.containsKey(left)){
+    			   
+    			   if(left == nums[i] && left == nums[j]){
+    				   if(map.get(left) < 3 ){
+    					   continue;
+    				   }
+    			   }
+    			   if(left == nums[i] || left == nums[j]){
+    				   if(map.get(left) < 2 ){
+    					   continue;
+    				   }
+    			   }
+    			   
+//    			   System.out.println("i:" + i + " j:" + j + " left:" + left);
+    			   List<Integer> tres = new ArrayList<>();
+    			   tres.add(nums[i]);
+    			   tres.add(nums[j]);
+    			   tres.add(left);
+    			   
+    			   Collections.sort(tres);
+    			   if(!res.contains(tres))
+    				   res.add(tres);
+    		   }
+    		   
+    	   }
+    	   
+       }
+       
+       
+       return res;
+    }
+	
+	public static void main(String[] args) {
+//		int[] nums = {-1, 0, 1, 2, -1, -4};
+		int[] nums = {0,0};
+		ThreeSum_15 t = new ThreeSum_15();
+		
+		List<List<Integer>> res = t.threeSum(nums);
+		
+		System.out.println(res.size());
+		
+		for(int i = 0; i < res.size() ;i++){
+			for(int j = 0; j < res.get(i).size() ;j++){
+				System.out.print(res.get(i).get(j) + " ");
+			}
+			System.out.println();
+		}
+	}
+}
